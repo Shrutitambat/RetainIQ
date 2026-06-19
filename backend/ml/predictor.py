@@ -35,12 +35,12 @@ MODEL_PATH    = os.getenv("ML_MODEL_PATH", "../ml_model/churn_model.pkl")
 SCALER_PATH   = os.getenv("SCALER_PATH",   "../ml_model/scaler.pkl")
 FEATURES_PATH = os.getenv("FEATURES_PATH", "../ml_model/feature_names.pkl")
 
-print("📦 Loading ML model artifacts...")
+print("[ML] Loading ML model artifacts...")
 model         = joblib.load(MODEL_PATH)
 scaler        = joblib.load(SCALER_PATH)
 feature_names = joblib.load(FEATURES_PATH)
 explainer     = shap.TreeExplainer(model)
-print("✅ ML model loaded successfully")
+print("[ML] ML model loaded successfully")
 
 
 def preprocess_dataframe(df: pd.DataFrame) -> np.ndarray:
