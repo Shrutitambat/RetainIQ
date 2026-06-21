@@ -7,6 +7,7 @@ import models, schemas
 from ml.predictor import predict_batch
 from ai.gemini import get_customer_insight, get_executive_summary
 import pandas as pd
+from fastapi.responses import StreamingResponse
 import io
 import math
 import json
@@ -26,6 +27,21 @@ def sanitize_for_json(obj):
         return obj
 
 router = APIRouter(prefix="/api/analysis", tags=["Analysis"])
+
+
+@router.get("/template")
+def download_template():
+    """Returns a sample CSV template with correct headers and 3 example rows"""
+    template_data = """customerID,gender,SeniorCitizen,Partner,Dependents,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges
+CUST-0001,Male,0,Yes,No,12,Yes,No,DSL,Yes,No,No,No,No,No,Month-to-month,Yes,Electronic check,55.5,650.25
+CUST-0002,Female,1,No,No,3,Yes,Yes,Fiber optic,No,No,No,No,Yes,Yes,Month-to-month,Yes,Electronic check,89.9,267.7
+CUST-0003,Male,0,Yes,Yes,48,Yes,No,DSL,Yes,Yes,Yes,Yes,No,No,Two year,No,Bank transfer (automatic),62.3,2990.4"""
+    return StreamingResponse(
+        io.StringIO(template_data),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=retainiq_template.csv"}
+    )
+
 
 
 @router.post("/upload")

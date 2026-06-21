@@ -27,7 +27,7 @@ export default function Landing() {
   }
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 relative overflow-hidden">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] relative overflow-hidden">
       
       {/* Background Blurred Orbs */}
       <div className="absolute top-[10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-[#6366f1] opacity-[0.12] filter blur-[100px] pointer-events-none" />
@@ -35,7 +35,7 @@ export default function Landing() {
       <div className="absolute bottom-[20%] left-[30%] w-[400px] h-[400px] rounded-full bg-[#06b6d4] opacity-[0.1] filter blur-[120px] pointer-events-none" />
 
       {/* Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#030712]/80 backdrop-blur-md border-b border-[rgba(99,102,241,0.15)] px-6 py-4">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-md border-b border-[var(--border-color)] px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export default function Landing() {
           <div className="flex items-center gap-4">
             <Link 
               to="/login" 
-              className="text-sm font-semibold text-slate-300 hover:text-white transition-colors px-4 py-2 hover:bg-[#1e2a45]/20 rounded-xl"
+              className="text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors px-4 py-2 hover:bg-[var(--bg-tertiary)]/20 rounded-xl"
             >
               Sign In
             </Link>
@@ -79,14 +79,14 @@ export default function Landing() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-100 leading-[1.1]">
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.1]">
             Stop Losing Customers.
             <br />
             <span className="gradient-text">Start Retaining Them.</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             RetainIQ analyzes customer usage patterns to predict churn risks with 92% accuracy, generating instant, actionable AI playbooks to save at-risk cohorts.
           </p>
 
@@ -101,7 +101,7 @@ export default function Landing() {
             </Link>
             <Link 
               to="/login" 
-              className="w-full sm:w-auto py-3 px-6 border border-slate-800 bg-[#0f1629] text-sm font-semibold rounded-xl text-slate-300 hover:border-[#6366f1]/50 hover:bg-[#151e36] transition-all flex items-center justify-center"
+              className="w-full sm:w-auto py-3 px-6 border border-[var(--border-color)] bg-[var(--bg-secondary)] text-sm font-semibold rounded-xl text-[var(--text-secondary)] hover:border-[#6366f1]/50 hover:bg-[var(--bg-tertiary)] transition-all flex items-center justify-center"
             >
               Sign In
             </Link>
@@ -126,27 +126,27 @@ export default function Landing() {
           <div className="pt-6 space-y-6 text-left">
             {/* Inner top stats grid */}
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-[#030712] border border-[rgba(99,102,241,0.15)] rounded-xl p-4">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Cohort Churn Risk</span>
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl p-4">
+                <span className="text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-wider">Cohort Churn Risk</span>
                 <p className="text-xl font-bold text-red-500 mt-1">High Risk</p>
               </div>
-              <div className="bg-[#030712] border border-[rgba(99,102,241,0.15)] rounded-xl p-4">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Avg Churn Probability</span>
-                <p className="text-xl font-bold text-slate-200 mt-1">79.4%</p>
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl p-4">
+                <span className="text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-wider">Avg Churn Probability</span>
+                <p className="text-xl font-bold text-[var(--text-primary)] mt-1">79.4%</p>
               </div>
-              <div className="bg-[#030712] border border-[rgba(99,102,241,0.15)] rounded-xl p-4">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Retention Health</span>
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl p-4">
+                <span className="text-[10px] text-[var(--text-secondary)] font-bold uppercase tracking-wider">Retention Health</span>
                 <p className="text-xl font-bold text-[#06b6d4] mt-1">Optimizing</p>
               </div>
             </div>
 
             {/* Progress Bar Animation */}
-            <div className="bg-[#030712] border border-[rgba(99,102,241,0.15)] rounded-xl p-4 space-y-3">
-              <div className="flex justify-between items-center text-xs font-semibold text-slate-400">
+            <div className="bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl p-4 space-y-3">
+              <div className="flex justify-between items-center text-xs font-semibold text-[var(--text-secondary)]">
                 <span>Analyzing Uploaded Churn Batch...</span>
                 <span className="text-[#6366f1]">79.4% Probability</span>
               </div>
-              <div className="w-full bg-[#0f1629] h-2.5 rounded-full overflow-hidden border border-slate-800">
+              <div className="w-full bg-[var(--bg-secondary)] h-2.5 rounded-full overflow-hidden border border-[var(--border-color)]">
                 <motion.div
                   initial={{ width: "0%" }}
                   whileInView={{ width: "79.4%" }}
@@ -161,23 +161,23 @@ export default function Landing() {
       </section>
 
       {/* Stats Bar */}
-      <section className="border-t border-b border-[rgba(99,102,241,0.15)] bg-[#0f1629]/20 py-12 px-6">
+      <section className="border-t border-b border-[var(--border-color)] bg-[var(--bg-secondary)]/20 py-12 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div className="space-y-1">
             <span className="text-3xl sm:text-4xl font-extrabold gradient-text">92%</span>
-            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Model Accuracy</p>
+            <p className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wider">Model Accuracy</p>
           </div>
           <div className="space-y-1">
             <span className="text-3xl sm:text-4xl font-extrabold gradient-text">3x</span>
-            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Faster Analysis</p>
+            <p className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wider">Faster Analysis</p>
           </div>
           <div className="space-y-1">
             <span className="text-3xl sm:text-4xl font-extrabold gradient-text">10K+</span>
-            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Customers Analyzed</p>
+            <p className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wider">Customers Analyzed</p>
           </div>
           <div className="space-y-1">
             <span className="text-3xl sm:text-4xl font-extrabold gradient-text">↓45%</span>
-            <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Churn Reduction</p>
+            <p className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wider">Churn Reduction</p>
           </div>
         </div>
       </section>
@@ -185,8 +185,8 @@ export default function Landing() {
       {/* Features Grid */}
       <section className="py-24 px-6 max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-3">
-          <h2 className="text-2xl sm:text-4xl font-bold text-slate-100">Everything you need to retain customers</h2>
-          <p className="text-slate-500 text-sm max-w-xl mx-auto">All-in-one predictive churn engine running real-time ML batch classifications coupled with automated AI reasoning.</p>
+          <h2 className="text-2xl sm:text-4xl font-bold text-[var(--text-primary)]">Everything you need to retain customers</h2>
+          <p className="text-[var(--text-secondary)] text-sm max-w-xl mx-auto">All-in-one predictive churn engine running real-time ML batch classifications coupled with automated AI reasoning.</p>
         </div>
 
         <motion.div 
@@ -201,8 +201,8 @@ export default function Landing() {
             <div className="p-3 bg-[#6366f1]/10 rounded-xl text-[#6366f1] group-hover:bg-[#6366f1]/20 transition-all border border-[#6366f1]/10">
               <Brain className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-200">ML Predictions</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Predict customer risk flags instantly using our trained XGBoost classifier optimized for customer retention metrics.</p>
+            <h3 className="font-bold text-[var(--text-primary)]">ML Predictions</h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Predict customer risk flags instantly using our trained XGBoost classifier optimized for customer retention metrics.</p>
           </motion.div>
 
           {/* Card 2 */}
@@ -210,8 +210,8 @@ export default function Landing() {
             <div className="p-3 bg-[#6366f1]/10 rounded-xl text-[#6366f1] group-hover:bg-[#6366f1]/20 transition-all border border-[#6366f1]/10">
               <BarChart3 className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-200">History & Charts</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Track trends, cohort risk scales, and average churn metrics over time using interactive dashboard visualizations.</p>
+            <h3 className="font-bold text-[var(--text-primary)]">History & Charts</h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Track trends, cohort risk scales, and average churn metrics over time using interactive dashboard visualizations.</p>
           </motion.div>
 
           {/* Card 3 */}
@@ -219,8 +219,8 @@ export default function Landing() {
             <div className="p-3 bg-[#6366f1]/10 rounded-xl text-[#6366f1] group-hover:bg-[#6366f1]/20 transition-all border border-[#6366f1]/10">
               <Users className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-200">Customer Segmentation</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Auto-segment customer lists based on contract terms, monthly fees, and tenure values to target the right cohorts.</p>
+            <h3 className="font-bold text-[var(--text-primary)]">Customer Segmentation</h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Auto-segment customer lists based on contract terms, monthly fees, and tenure values to target the right cohorts.</p>
           </motion.div>
 
           {/* Card 4 */}
@@ -228,8 +228,8 @@ export default function Landing() {
             <div className="p-3 bg-[#6366f1]/10 rounded-xl text-[#6366f1] group-hover:bg-[#6366f1]/20 transition-all border border-[#6366f1]/10">
               <Shield className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-200">Secure Architecture</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Strict authentication, secure password hashes, and OAuth2 authorization bearer guards protect your data endpoints.</p>
+            <h3 className="font-bold text-[var(--text-primary)]">Secure Architecture</h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Strict authentication, secure password hashes, and OAuth2 authorization bearer guards protect your data endpoints.</p>
           </motion.div>
 
           {/* Card 5 */}
@@ -237,8 +237,8 @@ export default function Landing() {
             <div className="p-3 bg-[#6366f1]/10 rounded-xl text-[#6366f1] group-hover:bg-[#6366f1]/20 transition-all border border-[#6366f1]/10">
               <TrendingDown className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-200">Risk Explanations</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">View a detailed feature breakdown describing exactly why a particular customer has been identified as a churn risk.</p>
+            <h3 className="font-bold text-[var(--text-primary)]">Risk Explanations</h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">View a detailed feature breakdown describing exactly why a particular customer has been identified as a churn risk.</p>
           </motion.div>
 
           {/* Card 6 */}
@@ -246,8 +246,8 @@ export default function Landing() {
             <div className="p-3 bg-[#6366f1]/10 rounded-xl text-[#6366f1] group-hover:bg-[#6366f1]/20 transition-all border border-[#6366f1]/10">
               <Sparkles className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-slate-200">AI Recommendations</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Obtain customized, actionable steps powered by Gemini AI templates to recover high and medium risk customer cohorts.</p>
+            <h3 className="font-bold text-[var(--text-primary)]">AI Recommendations</h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">Obtain customized, actionable steps powered by Gemini AI templates to recover high and medium risk customer cohorts.</p>
           </motion.div>
         </motion.div>
       </section>
@@ -264,8 +264,8 @@ export default function Landing() {
           {/* Subtle inside background orb */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#6366f1] opacity-[0.05] filter blur-[70px] pointer-events-none" />
           
-          <h2 className="text-3xl font-extrabold text-slate-100">Ready to reduce churn?</h2>
-          <p className="text-slate-400 text-sm max-w-lg">
+          <h2 className="text-3xl font-extrabold text-[var(--text-primary)]">Ready to reduce churn?</h2>
+          <p className="text-[var(--text-secondary)] text-sm max-w-lg">
             Create your account today and gain immediate access to ML predictions, feature risk insights, and automated AI playbooks.
           </p>
           <Link 
@@ -279,7 +279,7 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[rgba(99,102,241,0.15)] py-8 text-center text-xs text-slate-500 relative z-10">
+      <footer className="border-t border-[var(--border-color)] py-8 text-center text-xs text-[var(--text-secondary)] relative z-10">
         <p>© 2024 RetainIQ · Built with XGBoost + Gemini AI</p>
       </footer>
 

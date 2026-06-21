@@ -46,7 +46,7 @@ export default function Register() {
 
   return (
     <div 
-      className="min-h-screen bg-[#030712] text-slate-100 flex flex-col justify-center items-center relative overflow-hidden px-4"
+      className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex flex-col justify-center items-center relative overflow-hidden px-4"
       style={{
         backgroundImage: "radial-gradient(rgba(99, 102, 241, 0.08) 1.2px, transparent 1.2px)",
         backgroundSize: "24px 24px"
@@ -61,7 +61,7 @@ export default function Register() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-[420px] bg-[#0f1629] border border-[rgba(99,102,241,0.2)] rounded-[20px] p-10 shadow-2xl relative z-10"
+        className="w-full max-w-[420px] bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[20px] p-10 shadow-2xl relative z-10"
       >
         {/* RetainIQ Logo */}
         <div className="flex flex-col items-center mb-8">
@@ -73,8 +73,8 @@ export default function Register() {
               RetainIQ
             </span>
           </div>
-          <h2 className="text-xl font-bold text-slate-100 mt-2">Create your account</h2>
-          <p className="text-slate-500 text-xs mt-1">Get started with predictive churn intelligence</p>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mt-2">Create your account</h2>
+          <p className="text-[var(--text-secondary)] text-xs mt-1">Get started with predictive churn intelligence</p>
         </div>
 
         {/* Error inline block */}
@@ -88,11 +88,11 @@ export default function Register() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-xs font-semibold text-slate-400 mb-1.5">
+            <label htmlFor="name" className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
               Full Name
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-secondary)]">
                 <User className="h-4 w-4" />
               </span>
               <input
@@ -102,17 +102,17 @@ export default function Register() {
                 placeholder="John Doe"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="block w-full pl-10 pr-4 py-2.5 bg-[#0a0f1e] border border-[rgba(99,102,241,0.2)] focus:border-[#6366f1] rounded-xl text-white placeholder-slate-650 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
+                className="block w-full pl-10 pr-4 py-2.5 bg-[var(--bg-tertiary)] border border-[var(--border-color)] focus:border-[#6366f1] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-xs font-semibold text-slate-400 mb-1.5">
+            <label htmlFor="email" className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
               Email Address
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-secondary)]">
                 <Mail className="h-4 w-4" />
               </span>
               <input
@@ -122,17 +122,17 @@ export default function Register() {
                 placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full pl-10 pr-4 py-2.5 bg-[#0a0f1e] border border-[rgba(99,102,241,0.2)] focus:border-[#6366f1] rounded-xl text-white placeholder-slate-650 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
+                className="block w-full pl-10 pr-4 py-2.5 bg-[var(--bg-tertiary)] border border-[var(--border-color)] focus:border-[#6366f1] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="company" className="block text-xs font-semibold text-slate-400 mb-1.5">
+            <label htmlFor="company" className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
               Company (Optional)
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-secondary)]">
                 <Building className="h-4 w-4" />
               </span>
               <input
@@ -141,17 +141,17 @@ export default function Register() {
                 placeholder="Acme Corp"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                className="block w-full pl-10 pr-4 py-2.5 bg-[#0a0f1e] border border-[rgba(99,102,241,0.2)] focus:border-[#6366f1] rounded-xl text-white placeholder-slate-650 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
+                className="block w-full pl-10 pr-4 py-2.5 bg-[var(--bg-tertiary)] border border-[var(--border-color)] focus:border-[#6366f1] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-xs font-semibold text-slate-400 mb-1.5">
+            <label htmlFor="password" className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
               Password
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-secondary)]">
                 <Lock className="h-4 w-4" />
               </span>
               <input
@@ -161,12 +161,12 @@ export default function Register() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full pl-10 pr-10 py-2.5 bg-[#0a0f1e] border border-[rgba(99,102,241,0.2)] focus:border-[#6366f1] rounded-xl text-white placeholder-slate-650 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
+                className="block w-full pl-10 pr-10 py-2.5 bg-[var(--bg-tertiary)] border border-[var(--border-color)] focus:border-[#6366f1] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:ring-1 focus:ring-[#6366f1] transition-all text-sm"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
@@ -187,7 +187,7 @@ export default function Register() {
         </form>
 
         {/* Link to Login */}
-        <div className="mt-8 text-center text-xs text-slate-500">
+        <div className="mt-8 text-center text-xs text-[var(--text-secondary)]">
           Already have an account?{" "}
           <Link to="/login" className="font-semibold text-[#6366f1] hover:underline transition-colors">
             Sign in

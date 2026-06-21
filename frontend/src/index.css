@@ -3,17 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-primary: #030712;
+  --bg-secondary: #0f1629;
+  --bg-tertiary: #0a0f1e;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: rgba(99,102,241,0.15);
+}
+html.light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: rgba(99,102,241,0.2);
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body { background: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+body { background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0a0f1e; }
+::-webkit-scrollbar-track { background: var(--bg-tertiary); }
 ::-webkit-scrollbar-thumb { background: #2d3a56; border-radius: 4px; }
 
 .gradient-text { background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-.glass-card { background: #0f1629; border: 1px solid rgba(99,102,241,0.15); border-radius: 16px; }
+.glass-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; }
 
 .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; padding: 10px 20px; font-weight: 500; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 20px rgba(99,102,241,0.3); }
 .btn-primary:hover { box-shadow: 0 0 30px rgba(99,102,241,0.6); transform: translateY(-1px); }

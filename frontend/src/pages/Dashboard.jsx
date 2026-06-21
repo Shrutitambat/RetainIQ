@@ -111,7 +111,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center space-y-4">
         <Loader2 className="w-10 h-10 text-[#6366f1] animate-spin" />
-        <p className="text-xs text-slate-500">Loading intelligence dashboard...</p>
+        <p className="text-xs text-[var(--text-secondary)]">Loading intelligence dashboard...</p>
       </div>
     )
   }
@@ -122,12 +122,12 @@ export default function Dashboard() {
     <div className="space-y-8">
       
       {/* Top Row */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-100">
+          <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
             Welcome back, <span className="gradient-text">{firstName}</span> 👋
           </h1>
-          <p className="text-slate-400 mt-1 text-sm">Here's your customer retention overview</p>
+          <p className="text-[var(--text-secondary)] mt-1 text-sm">Here's your customer retention overview</p>
         </div>
         <Link
           to="/analysis"
@@ -152,12 +152,12 @@ export default function Dashboard() {
             className={`glass-card p-5 flex flex-col justify-between border-b-2 ${card.borderTheme} shadow-sm`}
           >
             <div className="flex justify-between items-center mb-3">
-              <span className="text-xs text-slate-500 font-semibold uppercase">{card.label}</span>
+              <span className="text-xs text-[var(--text-secondary)] font-semibold uppercase">{card.label}</span>
               <div className={`w-9 h-9 rounded-full ${card.iconBg} flex items-center justify-center shrink-0`}>
                 <card.icon className={`h-4.5 w-4.5 ${card.iconColor}`} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-slate-150 font-mono">
+            <p className="text-2xl font-bold text-[var(--text-primary)] font-mono">
               {totalCustomers === 0 ? "0" : card.value.toLocaleString()}
             </p>
           </motion.div>
@@ -170,14 +170,14 @@ export default function Dashboard() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md mx-auto text-center py-20 border border-slate-800/80 bg-[#0f1629]/20 rounded-2xl p-8 space-y-5"
+          className="max-w-md mx-auto text-center py-20 border border-[var(--border-color)] bg-[var(--bg-secondary)]/20 rounded-2xl p-8 space-y-5"
         >
-          <div className="p-4 bg-slate-900 border border-slate-800 rounded-full w-fit mx-auto text-slate-500">
+          <div className="p-4 bg-[var(--bg-tertiary)] border border-[var(--border-color)] rounded-full w-fit mx-auto text-[var(--text-secondary)]">
             <Upload className="h-6 w-6" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-md font-semibold text-slate-300">No analyses yet</h3>
-            <p className="text-slate-500 text-xs max-w-xs mx-auto">
+            <h3 className="text-md font-semibold text-[var(--text-primary)]">No analyses yet</h3>
+            <p className="text-[var(--text-secondary)] text-xs max-w-xs mx-auto">
               You haven't run any customer predictions yet. Upload a CSV file to evaluate retention risks.
             </p>
           </div>
@@ -202,7 +202,7 @@ export default function Dashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="glass-card p-6"
               >
-                <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wide mb-4">Risk Distribution</h3>
+                <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wide mb-4">Risk Distribution</h3>
                 <div className="h-[220px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -225,7 +225,7 @@ export default function Dashboard() {
                           return <Cell key={`cell-${index}`} fill={color} />
                         })}
                       </Pie>
-                      <Tooltip contentStyle={{ background: "#0f1629", border: "1px solid #2d3a56", borderRadius: 8, color: "#f1f5f9", fontSize: "11px" }} />
+                      <Tooltip contentStyle={{ background: "var(--bg-secondary)", border: "1px solid var(--border-color)", borderRadius: 8, color: "var(--text-primary)", fontSize: "11px" }} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -238,13 +238,13 @@ export default function Dashboard() {
                 transition={{ delay: 0.1 }}
                 className="glass-card p-6"
               >
-                <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wide mb-4">Analyses Over Time</h3>
+                <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wide mb-4">Analyses Over Time</h3>
                 <div className="h-[220px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={barData}>
-                      <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} />
-                      <YAxis stroke="#64748b" fontSize={10} tickLine={false} />
-                      <Tooltip contentStyle={{ background: "#0f1629", border: "1px solid #2d3a56", borderRadius: 8, color: "#f1f5f9", fontSize: "11px" }} />
+                      <XAxis dataKey="name" stroke="var(--text-secondary)" fontSize={10} tickLine={false} />
+                      <YAxis stroke="var(--text-secondary)" fontSize={10} tickLine={false} />
+                      <Tooltip contentStyle={{ background: "var(--bg-secondary)", border: "1px solid var(--border-color)", borderRadius: 8, color: "var(--text-primary)", fontSize: "11px" }} />
                       <Bar dataKey="high" fill="#ef4444" radius={[3, 3, 0, 0]} name="High Risk" />
                       <Bar dataKey="medium" fill="#f59e0b" radius={[3, 3, 0, 0]} name="Medium Risk" />
                       <Bar dataKey="low" fill="#10b981" radius={[3, 3, 0, 0]} name="Safe" />
@@ -262,7 +262,7 @@ export default function Dashboard() {
             {/* Quick Actions (1 Column) */}
             <div className="glass-card p-6 flex flex-col justify-between">
               <div>
-                <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wide mb-5">Quick Actions</h3>
+                <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wide mb-5">Quick Actions</h3>
                 <div className="space-y-3">
                   <button 
                     onClick={() => navigate("/analysis")} 
@@ -277,7 +277,7 @@ export default function Dashboard() {
                   
                   <button 
                     onClick={() => navigate("/history")} 
-                    className="w-full flex items-center justify-between p-3.5 rounded-xl bg-[#0a0f1e] border border-slate-850 hover:border-[#6366f1]/30 text-slate-300 transition-all group cursor-pointer text-left"
+                    className="w-full flex items-center justify-between p-3.5 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all group cursor-pointer text-left"
                   >
                     <span className="flex items-center gap-2 text-xs font-semibold">
                       <History size={15} />
@@ -291,24 +291,24 @@ export default function Dashboard() {
 
             {/* Recent Analyses (2 Columns) */}
             <div className="lg:col-span-2 glass-card p-6">
-              <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wide mb-5">Recent Analyses</h3>
+              <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wide mb-5">Recent Analyses</h3>
               <div className="space-y-3">
                 {historyList.slice(0, 4).map((item) => (
                   <div
                     key={item.id}
                     onClick={() => navigate(`/history/${item.id}`)}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#0a0f1e] border border-slate-850 hover:border-[#6366f1]/20 cursor-pointer transition-all hover:bg-[#0a0f1e]/80"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] hover:border-[#6366f1]/20 cursor-pointer transition-all hover:bg-[var(--bg-tertiary)]/80"
                   >
                     <div className="min-w-0 flex-1 pr-4">
-                      <p className="text-xs font-bold text-slate-200 truncate">{item.filename}</p>
-                      <p className="text-[10px] text-slate-500 mt-1">{new Date(item.created_at).toLocaleDateString()}</p>
+                      <p className="text-xs font-bold text-[var(--text-primary)] truncate">{item.filename}</p>
+                      <p className="text-[10px] text-[var(--text-secondary)] mt-1">{new Date(item.created_at).toLocaleDateString()}</p>
                     </div>
                     
                     <div className="flex items-center gap-2 shrink-0">
                       <span className="text-[10px] px-2 py-0.5 border border-red-500/25 bg-red-500/10 text-red-400 font-bold rounded-md">
                         {item.high_risk_count} high
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 border border-slate-700 bg-slate-800 text-slate-400 font-bold rounded-md">
+                      <span className="text-[10px] px-2 py-0.5 border border-[var(--border-color)] bg-[var(--bg-secondary)] text-[var(--text-secondary)] font-bold rounded-md">
                         {item.total_customers} total
                       </span>
                     </div>

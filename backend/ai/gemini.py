@@ -1,103 +1,97 @@
-# ai/gemini.py
-# ─────────────────────────────────────────────
-# Google Gemini AI integration (google-genai SDK).
-# Used for:
-# 1. Explaining WHY a customer might churn (plain English)
-# 2. Generating personalized retention recommendations
-# 3. Creating executive summary for entire analysis
-# ─────────────────────────────────────────────
-
-from google import genai
-from google.genai import types
-import json
 import os
+import json
+import logging
+from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# One shared client instance — created once at import time
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-
-def _generate(prompt: str, max_tokens: int = 500) -> str:
-    """Low-level helper: call Gemini and return stripped text."""
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt,
-        config=types.GenerateContentConfig(max_output_tokens=max_tokens)
-    )
-    return response.text.strip()
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+MODEL = "llama-3.3-70b-versatile"
 
 
-def get_customer_insight(
-    features: dict,
-    top_factors: list,
-    churn_probability: float
-) -> dict:
-    """
-    For a single customer:
-    - Explain in plain English why they might churn
-    - Suggest 3 personalized retention actions
-    - Assign a customer segment
+def _safe_factors_text(top_factors: list) -> str:
+    lines = []
+    for f in top_factors:
+        feature = f.get("feature", "unknown")
+        direction = f.get("direction", "affects")
+        value = f.get("value")
+        if value is None:
+            lines.append(f"- {feature}: {direction} churn risk")
+        else:
+            lines.append(f"- {feature}: {direction} churn risk (impact: {abs(value):.3f})")
+    return "\n".join(lines)
 
-    Returns dict with: explanation, recommendations, segment
-    """
 
-    # Format top factors for the prompt (guard against None values)
-    factors_text = "\n".join([
-        f"- {f['feature']}: {f['direction']} churn risk (impact: {abs(f['value']):.3f})"
-        for f in top_factors
-        if f.get("value") is not None
-    ])
+def get_customer_insight(features: dict, top_factors: list, churn_probability: float) -> dict:
+    factors_text = _safe_factors_text(top_factors)
 
     prompt = f"""You are a senior customer retention analyst at a telecom company.
 
-Customer Data: {json.dumps(features, indent=2)}
-Top Risk Factors:
+Customer Data:
+{json.dumps(features, indent=2, default=str)}
+
+Top Risk Factors (from SHAP analysis):
 {factors_text}
+
 Churn Probability: {churn_probability:.1%}
 
-Respond with ONLY a valid JSON object, no markdown, no extra text:
+Respond with ONLY a valid JSON object, no markdown formatting, no extra text:
 {{
-  "explanation": "2-3 sentences explaining why this customer is at risk",
-  "recommendations": ["action 1", "action 2", "action 3"],
-  "segment": "one of: Loyal Customer, Price-Sensitive, At-Risk, New Customer, High-Value At-Risk, Disengaged"
+  "explanation": "2-3 sentences explaining in plain business English why this specific customer is at risk, referencing their actual data",
+  "recommendations": ["specific action 1 tailored to this customer", "specific action 2", "specific action 3"],
+  "segment": "exactly one of: Loyal Customer, Price-Sensitive, At-Risk, New Customer, High-Value At-Risk, Disengaged"
 }}"""
 
     try:
-        text = _generate(prompt, 500)
-        # Strip markdown code fences if Gemini adds them
-        text = text.replace("```json", "").replace("```", "").strip()
+        logger.info(f"Calling Groq for customer insight, churn_prob={churn_probability}")
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=500,
+            response_format={"type": "json_object"},
+        )
+        text = response.choices[0].message.content.strip()
+        logger.info(f"Groq raw response: {text[:200]}")
         return json.loads(text)
     except Exception:
-        # Graceful fallback — never crash the whole analysis
+        logger.exception("Groq call failed for get_customer_insight")
         return {
-            "explanation": f"This customer shows a {churn_probability:.1%} churn probability based on usage patterns.",
+            "explanation": f"This customer shows a {churn_probability:.1%} churn probability based on their usage patterns and service interactions.",
             "recommendations": [
-                "Reach out with personalized retention offer",
-                "Review their service plan",
-                "Assign dedicated support",
+                "Reach out proactively with a personalized retention offer",
+                "Review their service plan and suggest better-fit options",
+                "Assign a dedicated customer success representative"
             ],
-            "segment": "At-Risk",
+            "segment": "At-Risk"
         }
 
 
 def get_executive_summary(stats: dict) -> str:
-    """
-    Generate a business-level executive summary
-    for the entire uploaded customer dataset.
-    """
-    prompt = f"""You are a Chief Customer Officer. Write a 3-4 sentence executive summary for this churn analysis.
+    prompt = f"""You are a Chief Customer Officer presenting churn analysis results to the executive team.
 
-Results: {stats['total']} customers analyzed. High risk: {stats['high_risk']} ({stats['high_risk_pct']:.1f}%). Medium: {stats['medium_risk']} ({stats['medium_risk_pct']:.1f}%). Low: {stats['low_risk']} ({stats['low_risk_pct']:.1f}%). Avg churn probability: {stats['avg_prob']:.1%}. Top drivers: {', '.join(stats['top_factors'])}.
+Analysis Results:
+- Total customers analyzed: {stats['total']}
+- High risk: {stats['high_risk']} customers ({stats['high_risk_pct']:.1f}%)
+- Medium risk: {stats['medium_risk']} customers ({stats['medium_risk_pct']:.1f}%)
+- Low risk: {stats['low_risk']} customers ({stats['low_risk_pct']:.1f}%)
+- Average churn probability: {stats['avg_prob']:.1%}
+- Top churn drivers: {', '.join(stats['top_factors'])}
 
-Be direct and business-focused. No bullet points."""
+Write a 3-4 sentence executive summary. State the key finding, identify the most critical risk factors, recommend immediate action. Be direct, business-focused, no bullet points."""
 
     try:
-        return _generate(prompt, 300)
-    except Exception:
-        return (
-            f"Analysis complete. {stats['high_risk']} customers "
-            f"({stats['high_risk_pct']:.1f}%) are at high risk of churning. "
-            "Immediate retention action is recommended, focusing on the identified risk factors."
+        logger.info("Calling Groq for executive summary")
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=300,
         )
+        return response.choices[0].message.content.strip()
+    except Exception:
+        logger.exception("Groq call failed for get_executive_summary")
+        return f"Analysis complete. {stats['high_risk']} customers ({stats['high_risk_pct']:.1f}%) are at high risk of churning. Immediate retention action is recommended, focusing on the identified risk factors."
